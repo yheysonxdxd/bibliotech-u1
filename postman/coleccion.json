@@ -1,0 +1,706 @@
+{
+  "info": {
+    "_postman_id": "6f4908c8-85b1-4c82-afe0-f1535434d413",
+    "name": "BiblioTech API",
+    "description": "Producto Académico U1 · Pruebas de API (Postman/Newman). Ejecutar con: newman run postman/coleccion.json",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Libros (RN-01)",
+      "item": [
+        {
+          "name": "01 Listar libros (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Cuerpo: arreglo con estado calculado', () => {",
+                  "  const libros = pm.response.json();",
+                  "  pm.expect(libros).to.be.an('array');",
+                  "  libros.forEach(l => pm.expect(['DISPONIBLE', 'NO_DISPONIBLE']).to.include(l.estado));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/libros",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros"
+              ]
+            }
+          }
+        },
+        {
+          "name": "02 Registrar libro válido (201)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const isbn = '978' + String(Date.now()).slice(-10);",
+                  "pm.collectionVariables.set('isbn', isbn);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 201', () => pm.response.to.have.status(201));",
+                  "const libro = pm.response.json();",
+                  "pm.test('Cuerpo: id, ISBN y estado DISPONIBLE', () => {",
+                  "  pm.expect(libro.id).to.be.a('number');",
+                  "  pm.expect(libro.isbn).to.eql(pm.collectionVariables.get('isbn'));",
+                  "  pm.expect(libro.estado).to.eql('DISPONIBLE');",
+                  "});",
+                  "pm.collectionVariables.set('libroId', libro.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/libros",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isbn\": \"{{isbn}}\",\n  \"titulo\": \"Pruebas de Software\",\n  \"autor\": \"Glenford Myers\",\n  \"ejemplaresDisponibles\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "03 Libro con ISBN duplicado (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: mensaje de ISBN duplicado (CA-02)', () => {",
+                  "  pm.expect(pm.response.json().mensaje).to.include('Ya existe un libro con el ISBN');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/libros",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isbn\": \"{{isbn}}\",\n  \"titulo\": \"Otro\",\n  \"autor\": \"Otro\",\n  \"ejemplaresDisponibles\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "04 Libro sin ISBN (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: El ISBN es obligatorio (CA-01)', () => {",
+                  "  pm.expect(pm.response.json().errores).to.include('El ISBN es obligatorio');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/libros",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isbn\": \"\",\n  \"titulo\": \"Sin ISBN\",\n  \"autor\": \"Anónimo\",\n  \"ejemplaresDisponibles\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "05 Libro con ejemplares negativos (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: ejemplares no negativos', () => {",
+                  "  pm.expect(pm.response.json().errores).to.include('Los ejemplares no pueden ser negativos');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/libros",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isbn\": \"9789999999999\",\n  \"titulo\": \"Negativo\",\n  \"autor\": \"Anónimo\",\n  \"ejemplaresDisponibles\": -1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "06 Libro inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Cuerpo: mensaje no existe', () => pm.expect(pm.response.json().mensaje).to.include('no existe'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/libros/999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros",
+                "999999"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estudiantes (RN-02)",
+      "item": [
+        {
+          "name": "07 Registrar estudiante (201, ACTIVO)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set('dni', String(Date.now()).slice(-8));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 201', () => pm.response.to.have.status(201));",
+                  "const est = pm.response.json();",
+                  "pm.test('Cuerpo: estado inicial ACTIVO (RN-02)', () => {",
+                  "  pm.expect(est.estado).to.eql('ACTIVO');",
+                  "  pm.expect(est.dni).to.eql(pm.collectionVariables.get('dni'));",
+                  "});",
+                  "pm.collectionVariables.set('estudianteId', est.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/estudiantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estudiantes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"{{dni}}\",\n  \"nombre\": \"Ana Quispe\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "08 Estudiante con DNI duplicado (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: DNI duplicado', () => pm.expect(pm.response.json().mensaje).to.include('Ya existe un estudiante'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/estudiantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estudiantes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"{{dni}}\",\n  \"nombre\": \"Otra persona\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "09 Estudiante sin nombre (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: nombre obligatorio', () => pm.expect(pm.response.json().errores).to.include('El nombre es obligatorio'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/estudiantes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estudiantes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"12345678\",\n  \"nombre\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Préstamos (RN-03 y RN-04)",
+      "item": [
+        {
+          "name": "10 Registrar préstamo (201, baja ejemplar)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 201', () => pm.response.to.have.status(201));",
+                  "const p = pm.response.json();",
+                  "pm.test('Cuerpo: préstamo ACTIVO y el libro queda con 0 ejemplares', () => {",
+                  "  pm.expect(p.estado).to.eql('ACTIVO');",
+                  "  pm.expect(p.libro.ejemplaresDisponibles).to.eql(0);",
+                  "  pm.expect(p.libro.estado).to.eql('NO_DISPONIBLE');",
+                  "});",
+                  "pm.collectionVariables.set('prestamoId', p.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prestamos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prestamos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estudianteId\": {{estudianteId}},\n  \"libroId\": {{libroId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "11 Préstamo sin ejemplares (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: sin ejemplares (RN-03 D2)', () => pm.expect(pm.response.json().mensaje).to.eql('El libro no tiene ejemplares disponibles'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prestamos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prestamos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estudianteId\": {{estudianteId}},\n  \"libroId\": {{libroId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "12 Préstamo con libro inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Cuerpo: libro no existe (RN-03 D1)', () => pm.expect(pm.response.json().mensaje).to.eql('El libro no existe'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/prestamos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prestamos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estudianteId\": {{estudianteId}},\n  \"libroId\": 999999\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "13 Devolver libro (200, DEVUELTO)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Cuerpo: DEVUELTO y el ejemplar se restituye', () => {",
+                  "  const p = pm.response.json();",
+                  "  pm.expect(p.estado).to.eql('DEVUELTO');",
+                  "  pm.expect(p.libro.ejemplaresDisponibles).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prestamos/{{prestamoId}}/devolucion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prestamos",
+                "{{prestamoId}}",
+                "devolucion"
+              ]
+            }
+          }
+        },
+        {
+          "name": "14 Devolver dos veces (400)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Cuerpo: ya fue devuelto (RN-04 D2)', () => pm.expect(pm.response.json().mensaje).to.eql('El préstamo ya fue devuelto'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prestamos/{{prestamoId}}/devolucion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prestamos",
+                "{{prestamoId}}",
+                "devolucion"
+              ]
+            }
+          }
+        },
+        {
+          "name": "15 Devolver préstamo inexistente (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 404', () => pm.response.to.have.status(404));",
+                  "pm.test('Cuerpo: préstamo no existe (RN-04 D1)', () => pm.expect(pm.response.json().mensaje).to.eql('El préstamo no existe'));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/prestamos/999999/devolucion",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "prestamos",
+                "999999",
+                "devolucion"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Verificación final",
+      "item": [
+        {
+          "name": "16 Verificar libro tras devolución (200)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Estado 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Cuerpo: vuelve a DISPONIBLE con 1 ejemplar', () => {",
+                  "  const l = pm.response.json();",
+                  "  pm.expect(l.ejemplaresDisponibles).to.eql(1);",
+                  "  pm.expect(l.estado).to.eql('DISPONIBLE');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/libros/{{libroId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "libros",
+                "{{libroId}}"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "isbn",
+      "value": ""
+    },
+    {
+      "key": "dni",
+      "value": ""
+    },
+    {
+      "key": "libroId",
+      "value": ""
+    },
+    {
+      "key": "estudianteId",
+      "value": ""
+    },
+    {
+      "key": "prestamoId",
+      "value": ""
+    }
+  ]
+}

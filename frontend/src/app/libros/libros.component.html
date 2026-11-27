@@ -1,0 +1,56 @@
+<section>
+  <h2>Catálogo de libros</h2>
+
+  <form [formGroup]="form" (ngSubmit)="registrar()" class="tarjeta" novalidate>
+    <h3>Registrar libro</h3>
+    <div class="fila">
+      <label>ISBN
+        <input formControlName="isbn" data-cy="isbn" />
+      </label>
+      @if (invalido('isbn')) { <small class="err" data-cy="error-isbn">El ISBN es obligatorio</small> }
+    </div>
+    <div class="fila">
+      <label>Título
+        <input formControlName="titulo" data-cy="titulo" />
+      </label>
+      @if (invalido('titulo')) { <small class="err" data-cy="error-titulo">El título es obligatorio</small> }
+    </div>
+    <div class="fila">
+      <label>Autor
+        <input formControlName="autor" data-cy="autor" />
+      </label>
+      @if (invalido('autor')) { <small class="err" data-cy="error-autor">El autor es obligatorio</small> }
+    </div>
+    <div class="fila">
+      <label>Ejemplares
+        <input type="number" formControlName="ejemplaresDisponibles" data-cy="ejemplares" />
+      </label>
+      @if (invalido('ejemplaresDisponibles')) {
+        <small class="err" data-cy="error-ejemplares">Los ejemplares no pueden ser negativos</small>
+      }
+    </div>
+    <button type="submit" data-cy="guardar-libro">Registrar</button>
+  </form>
+
+  @if (mensaje) { <p class="ok" data-cy="mensaje">{{ mensaje }}</p> }
+  @if (error) { <p class="err" data-cy="error">{{ error }}</p> }
+
+  <table data-cy="tabla-libros">
+    <thead>
+      <tr><th>ISBN</th><th>Título</th><th>Autor</th><th>Ejemplares</th><th>Estado</th></tr>
+    </thead>
+    <tbody>
+      @for (libro of libros; track libro.id) {
+        <tr data-cy="fila-libro">
+          <td>{{ libro.isbn }}</td>
+          <td>{{ libro.titulo }}</td>
+          <td>{{ libro.autor }}</td>
+          <td data-cy="ejemplares-libro">{{ libro.ejemplaresDisponibles }}</td>
+          <td>{{ libro.estado }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5">No hay libros registrados</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

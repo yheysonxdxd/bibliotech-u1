@@ -1,0 +1,10 @@
+backend/target/
+**/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/coverage/
+e2e/cypress/screenshots/
+e2e/cypress/videos/
+.idea/
+*.iml
+.DS_Store

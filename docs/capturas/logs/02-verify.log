@@ -1,0 +1,170 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< pe.edu.upeu:bibliotech >-----------------------
+[INFO] Building BiblioTech 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ bibliotech ---
+[INFO] Deleting D:\bibibliotech\bibliotech\backend\target
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ bibliotech ---
+[INFO] argLine set to -javaagent:C:\\Users\\yheys\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=D:\\bibibliotech\\bibliotech\\backend\\target\\jacoco.exec,excludes=pe/edu/upeu/bibliotech/BibliotechApplication.class:pe/edu/upeu/bibliotech/config/DatosIniciales*
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ bibliotech ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ bibliotech ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 24 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ bibliotech ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ bibliotech ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 10 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ bibliotech ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running pe.edu.upeu.bibliotech.mockito.EstudianteServiceTest
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\yheys\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.786 s -- in pe.edu.upeu.bibliotech.mockito.EstudianteServiceTest
+[INFO] Running pe.edu.upeu.bibliotech.mockito.LibroServiceTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.118 s -- in pe.edu.upeu.bibliotech.mockito.LibroServiceTest
+[INFO] Running pe.edu.upeu.bibliotech.mockito.PrestamoServiceTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.132 s -- in pe.edu.upeu.bibliotech.mockito.PrestamoServiceTest
+[INFO] Running pe.edu.upeu.bibliotech.unitarias.CaminoBasicoDevolverLibroTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 s -- in pe.edu.upeu.bibliotech.unitarias.CaminoBasicoDevolverLibroTest
+[INFO] Running pe.edu.upeu.bibliotech.unitarias.CaminoBasicoRegistrarPrestamoTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in pe.edu.upeu.bibliotech.unitarias.CaminoBasicoRegistrarPrestamoTest
+[INFO] Running pe.edu.upeu.bibliotech.unitarias.EstudianteValidadorTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.081 s -- in pe.edu.upeu.bibliotech.unitarias.EstudianteValidadorTest
+[INFO] Running pe.edu.upeu.bibliotech.unitarias.LibroValidadorTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 s -- in pe.edu.upeu.bibliotech.unitarias.LibroValidadorTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 46, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ bibliotech ---
+[INFO] Building jar: D:\bibibliotech\bibliotech\backend\target\bibliotech-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.3.5:repackage (repackage) @ bibliotech ---
+[INFO] Replacing main artifact D:\bibibliotech\bibliotech\backend\target\bibliotech-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to D:\bibibliotech\bibliotech\backend\target\bibliotech-1.0.0.jar.original
+[INFO] 
+[INFO] --- failsafe:3.2.5:integration-test (default) @ bibliotech ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running pe.edu.upeu.bibliotech.integracion.FlujoPrestamoIntegracionTest
+22:55:46.818 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [pe.edu.upeu.bibliotech.integracion.FlujoPrestamoIntegracionTest]: FlujoPrestamoIntegracionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:55:47.031 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration pe.edu.upeu.bibliotech.BibliotechApplication for test class pe.edu.upeu.bibliotech.integracion.FlujoPrestamoIntegracionTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-11-26T22:55:47.724-05:00  INFO 16576 --- [           main] p.e.u.b.i.FlujoPrestamoIntegracionTest   : Starting FlujoPrestamoIntegracionTest using Java 21.0.7 with PID 16576 (started by yheys in D:\bibibliotech\bibliotech\backend)
+2026-11-26T22:55:47.724-05:00  INFO 16576 --- [           main] p.e.u.b.i.FlujoPrestamoIntegracionTest   : No active profile set, falling back to 1 default profile: "default"
+2026-11-26T22:55:48.618-05:00  INFO 16576 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-26T22:55:48.696-05:00  INFO 16576 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63 ms. Found 3 JPA repository interfaces.
+2026-11-26T22:55:49.259-05:00  INFO 16576 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-26T22:55:49.355-05:00  INFO 16576 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-11-26T22:55:49.413-05:00  INFO 16576 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-26T22:55:49.933-05:00  INFO 16576 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-26T22:55:49.979-05:00  INFO 16576 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-26T22:55:50.381-05:00  INFO 16576 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:bibliotech_test user=SA
+2026-11-26T22:55:50.384-05:00  INFO 16576 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-26T22:55:51.640-05:00  INFO 16576 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-26T22:55:51.711-05:00  INFO 16576 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-26T22:55:52.839-05:00  INFO 16576 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-26T22:55:52.839-05:00  INFO 16576 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-26T22:55:52.839-05:00  INFO 16576 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-26T22:55:52.857-05:00  INFO 16576 --- [           main] p.e.u.b.i.FlujoPrestamoIntegracionTest   : Started FlujoPrestamoIntegracionTest in 5.546 seconds (process running for 7.224)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (C:\Users\yheys\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.19\byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.804 s -- in pe.edu.upeu.bibliotech.integracion.FlujoPrestamoIntegracionTest
+[INFO] Running pe.edu.upeu.bibliotech.integracion.LibroControllerTest
+2026-11-26T22:55:54.346-05:00  INFO 16576 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [pe.edu.upeu.bibliotech.integracion.LibroControllerTest]: LibroControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-26T22:55:54.372-05:00  INFO 16576 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pe.edu.upeu.bibliotech.BibliotechApplication for test class pe.edu.upeu.bibliotech.integracion.LibroControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-11-26T22:55:54.399-05:00  INFO 16576 --- [           main] p.e.u.b.integracion.LibroControllerTest  : Starting LibroControllerTest using Java 21.0.7 with PID 16576 (started by yheys in D:\bibibliotech\bibliotech\backend)
+2026-11-26T22:55:54.399-05:00  INFO 16576 --- [           main] p.e.u.b.integracion.LibroControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-26T22:55:54.869-05:00  INFO 16576 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-26T22:55:54.869-05:00  INFO 16576 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-26T22:55:54.869-05:00  INFO 16576 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-26T22:55:54.884-05:00  INFO 16576 --- [           main] p.e.u.b.integracion.LibroControllerTest  : Started LibroControllerTest in 0.508 seconds (process running for 9.246)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.751 s -- in pe.edu.upeu.bibliotech.integracion.LibroControllerTest
+[INFO] Running pe.edu.upeu.bibliotech.integracion.PrestamoControllerTest
+2026-11-26T22:55:55.103-05:00  INFO 16576 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [pe.edu.upeu.bibliotech.integracion.PrestamoControllerTest]: PrestamoControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-26T22:55:55.117-05:00  INFO 16576 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration pe.edu.upeu.bibliotech.BibliotechApplication for test class pe.edu.upeu.bibliotech.integracion.PrestamoControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-11-26T22:55:55.151-05:00  INFO 16576 --- [           main] p.e.u.b.i.PrestamoControllerTest         : Starting PrestamoControllerTest using Java 21.0.7 with PID 16576 (started by yheys in D:\bibibliotech\bibliotech\backend)
+2026-11-26T22:55:55.151-05:00  INFO 16576 --- [           main] p.e.u.b.i.PrestamoControllerTest         : No active profile set, falling back to 1 default profile: "default"
+2026-11-26T22:55:55.519-05:00  INFO 16576 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-26T22:55:55.519-05:00  INFO 16576 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-26T22:55:55.521-05:00  INFO 16576 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-11-26T22:55:55.527-05:00  INFO 16576 --- [           main] p.e.u.b.i.PrestamoControllerTest         : Started PrestamoControllerTest in 0.404 seconds (process running for 9.889)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.519 s -- in pe.edu.upeu.bibliotech.integracion.PrestamoControllerTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 17, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- failsafe:3.2.5:verify (default) @ bibliotech ---
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ bibliotech ---
+[INFO] Loading execution data file D:\bibibliotech\bibliotech\backend\target\jacoco.exec
+[INFO] Analyzed bundle 'BiblioTech' with 19 classes
+[INFO] 
+[INFO] --- jacoco:0.8.12:check (check) @ bibliotech ---
+[INFO] Loading execution data file D:\bibibliotech\bibliotech\backend\target\jacoco.exec
+[INFO] Analyzed bundle 'bibliotech' with 19 classes
+[INFO] All coverage checks have been met.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  18.778 s
+[INFO] Finished at: 2026-11-26T22:55:56-05:00
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,61 @@
+<section>
+  <h2>Registrar préstamo</h2>
+
+  @if (mensaje) { <p class="ok" data-cy="mensaje">{{ mensaje }}</p> }
+  @if (error) { <p class="err" data-cy="error">{{ error }}</p> }
+
+  <div class="columnas">
+    <form class="tarjeta" (ngSubmit)="prestar()">
+      <h3>Nuevo préstamo</h3>
+      <label>Estudiante
+        <select name="estudiante" [(ngModel)]="estudianteId" data-cy="select-estudiante">
+          <option [ngValue]="null">-- Seleccione --</option>
+          @for (e of estudiantes; track e.id) {
+            <option [ngValue]="e.id">{{ e.nombre }} ({{ e.dni }}) · {{ e.estado }}</option>
+          }
+        </select>
+      </label>
+      <label>Libro
+        <select name="libro" [(ngModel)]="libroId" data-cy="select-libro">
+          <option [ngValue]="null">-- Seleccione --</option>
+          @for (l of libros; track l.id) {
+            <option [ngValue]="l.id">{{ l.titulo }} · {{ l.ejemplaresDisponibles }} ejemplares</option>
+          }
+        </select>
+      </label>
+      <button type="submit" data-cy="prestar">Prestar</button>
+    </form>
+
+    <form class="tarjeta" (ngSubmit)="registrarEstudiante()">
+      <h3>Registrar estudiante</h3>
+      <label>DNI <input name="dni" [(ngModel)]="nuevoEstudiante.dni" maxlength="8" data-cy="dni" /></label>
+      <label>Nombre <input name="nombre" [(ngModel)]="nuevoEstudiante.nombre" data-cy="nombre" /></label>
+      <button type="submit" data-cy="guardar-estudiante">Registrar estudiante</button>
+    </form>
+  </div>
+
+  <h3>Préstamos</h3>
+  <table data-cy="tabla-prestamos">
+    <thead>
+      <tr><th>#</th><th>Fecha</th><th>Estudiante</th><th>Libro</th><th>Estado</th><th></th></tr>
+    </thead>
+    <tbody>
+      @for (p of prestamos; track p.id) {
+        <tr data-cy="fila-prestamo">
+          <td>{{ p.id }}</td>
+          <td>{{ p.fechaPrestamo }}</td>
+          <td>{{ p.estudiante.nombre }}</td>
+          <td>{{ p.libro.titulo }}</td>
+          <td>{{ p.estado }}</td>
+          <td>
+            @if (p.estado === 'ACTIVO') {
+              <button type="button" (click)="devolver(p)" data-cy="devolver">Devolver</button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="6">No hay préstamos</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

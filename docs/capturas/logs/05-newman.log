@@ -1,0 +1,107 @@
+newman
+
+BiblioTech API
+
+□ Libros (RN-01)
+└ 01 Listar libros (200)
+  GET http://localhost:8080/api/libros [200 OK, 645B, 28ms]
+  √  Estado 200
+  √  Cuerpo: arreglo con estado calculado
+
+└ 02 Registrar libro válido (201)
+  POST http://localhost:8080/api/libros [201 Created, 393B, 48ms]
+  √  Estado 201
+  √  Cuerpo: id, ISBN y estado DISPONIBLE
+
+└ 03 Libro con ISBN duplicado (400)
+  POST http://localhost:8080/api/libros [400 Bad Request, 363B, 14ms]
+  √  Estado 400
+  √  Cuerpo: mensaje de ISBN duplicado (CA-02)
+
+└ 04 Libro sin ISBN (400)
+  POST http://localhost:8080/api/libros [400 Bad Request, 319B, 9ms]
+  √  Estado 400
+  √  Cuerpo: El ISBN es obligatorio (CA-01)
+
+└ 05 Libro con ejemplares negativos (400)
+  POST http://localhost:8080/api/libros [400 Bad Request, 351B, 8ms]
+  √  Estado 400
+  √  Cuerpo: ejemplares no negativos
+
+└ 06 Libro inexistente (404)
+  GET http://localhost:8080/api/libros/999999 [404 Not Found, 366B, 14ms]
+  √  Estado 404
+  √  Cuerpo: mensaje no existe
+
+□ Estudiantes (RN-02)
+└ 07 Registrar estudiante (201, ACTIVO)
+  POST http://localhost:8080/api/estudiantes [201 Created, 323B, 13ms]
+  √  Estado 201
+  √  Cuerpo: estado inicial ACTIVO (RN-02)
+
+└ 08 Estudiante con DNI duplicado (400)
+  POST http://localhost:8080/api/estudiantes [400 Bad Request, 361B, 9ms]
+  √  Estado 400
+  √  Cuerpo: DNI duplicado
+
+└ 09 Estudiante sin nombre (400)
+  POST http://localhost:8080/api/estudiantes [400 Bad Request, 323B, 9ms]
+  √  Estado 400
+  √  Cuerpo: nombre obligatorio
+
+□ Préstamos (RN-03 y RN-04)
+└ 10 Registrar préstamo (201, baja ejemplar)
+  POST http://localhost:8080/api/prestamos [201 Created, 539B, 32ms]
+  √  Estado 201
+  √  Cuerpo: préstamo ACTIVO y el libro queda con 0 ejemplares
+
+└ 11 Préstamo sin ejemplares (400)
+  POST http://localhost:8080/api/prestamos [400 Bad Request, 355B, 6ms]
+  √  Estado 400
+  √  Cuerpo: sin ejemplares (RN-03 D2)
+
+└ 12 Préstamo con libro inexistente (404)
+  POST http://localhost:8080/api/prestamos [404 Not Found, 338B, 8ms]
+  √  Estado 404
+  √  Cuerpo: libro no existe (RN-03 D1)
+
+└ 13 Devolver libro (200, DEVUELTO)
+  PUT http://localhost:8080/api/prestamos/1/devolucion [200 OK, 533B, 10ms]
+  √  Estado 200
+  √  Cuerpo: DEVUELTO y el ejemplar se restituye
+
+└ 14 Devolver dos veces (400)
+  PUT http://localhost:8080/api/prestamos/1/devolucion [400 Bad Request, 331B, 6ms]
+  √  Estado 400
+  √  Cuerpo: ya fue devuelto (RN-04 D2)
+
+└ 15 Devolver préstamo inexistente (404)
+  PUT http://localhost:8080/api/prestamos/999999/devolucion [404 Not Found, 346B, 8ms]
+  √  Estado 404
+  √  Cuerpo: préstamo no existe (RN-04 D1)
+
+□ Verificación final
+└ 16 Verificar libro tras devolución (200)
+  GET http://localhost:8080/api/libros/4 [200 OK, 388B, 6ms]
+  √  Estado 200
+  √  Cuerpo: vuelve a DISPONIBLE con 1 ejemplar
+
+┌─────────────────────────┬──────────────────┬──────────────────┐
+│                         │         executed │           failed │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              iterations │                1 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│                requests │               16 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│            test-scripts │               16 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│      prerequest-scripts │                2 │                0 │
+├─────────────────────────┼──────────────────┼──────────────────┤
+│              assertions │               32 │                0 │
+├─────────────────────────┴──────────────────┴──────────────────┤
+│ total run duration: 1503ms                                    │
+├───────────────────────────────────────────────────────────────┤
+│ total data received: 2.33kB (approx)                          │
+├───────────────────────────────────────────────────────────────┤
+│ average response time: 14ms [min: 6ms, max: 48ms, s.d.: 11ms] │
+└───────────────────────────────────────────────────────────────┘

@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: #f5f6f8; color: #1f2933; }
+header { background: #1e3a5f; color: #fff; padding: 12px 24px; display: flex; align-items: center; gap: 32px; }
+header h1 { margin: 0; font-size: 1.4rem; }
+nav a { color: #cfe0f5; margin-right: 16px; text-decoration: none; }
+nav a.activo { color: #fff; font-weight: 600; border-bottom: 2px solid #fff; }
+main { padding: 24px; max-width: 1000px; margin: auto; }
+.tarjeta { background: #fff; padding: 16px; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+.columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+label { display: block; margin: 8px 0 2px; font-size: .9rem; }
+input, select { display: block; width: 100%; padding: 6px 8px; margin-top: 4px; border: 1px solid #c3cad3; border-radius: 4px; }
+button { margin-top: 12px; padding: 8px 14px; background: #1e3a5f; color: #fff; border: 0; border-radius: 4px; cursor: pointer; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { padding: 8px; border-bottom: 1px solid #e3e7ec; text-align: left; }
+.ok { color: #1a7f37; font-weight: 600; }
+.err { color: #c62828; display: block; }

@@ -1,0 +1,8 @@
+Código;Regla;Descripción;ISBN;Título;Autor;Ejemplares;Resultado esperado;Tipo;Prueba automática
+CP01;RN-01;Libro con todos los datos válidos;9780132350884;Clean Code;Robert C. Martin;3;Se registra · estado DISPONIBLE;Válido;LibroValidadorTest.cp01_libroValido
+CP02;RN-01 / CA-01;ISBN vacío, nulo o solo espacios;(vacío);Clean Code;Robert C. Martin;3;Error «El ISBN es obligatorio»;Inválido;LibroValidadorTest.cp02_isbnObligatorio
+CP03;RN-01;Título vacío;9780132350884;(vacío);Robert C. Martin;3;Error «El título es obligatorio»;Inválido;LibroValidadorTest.cp03_tituloObligatorio
+CP04;RN-01;Autor nulo;9780132350884;Clean Code;(nulo);3;Error «El autor es obligatorio»;Inválido;LibroValidadorTest.cp04_autorObligatorio
+CP05;RN-01;Ejemplares negativos (borde −1);9780132350884;Clean Code;Robert C. Martin;-1;Error «Los ejemplares no pueden ser negativos»;Borde;LibroValidadorTest.cp05_ejemplaresNegativos
+CP06;RN-01 / CA-06-07;Cero ejemplares (borde 0);9780132350884;Clean Code;Robert C. Martin;0;Se registra · estado NO_DISPONIBLE;Borde;LibroValidadorTest.cp06_ceroEjemplaresEsValidoYNoDisponible
+CP07;RN-01 / CA-02;ISBN duplicado;9780132350884 (ya existe);Otro;Otro;1;Error «Ya existe un libro con el ISBN…»;Inválido;LibroServiceTest.registrar_isbnDuplicado

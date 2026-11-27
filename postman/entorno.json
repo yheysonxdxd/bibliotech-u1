@@ -1,0 +1,12 @@
+{
+  "id": "c876c1bc-3f77-453f-8837-4665e8c6cd83",
+  "name": "BiblioTech local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
