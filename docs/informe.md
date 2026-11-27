@@ -110,11 +110,8 @@ Reporte generado por `mvn verify` en `backend/target/site/jacoco/index.html`.
 
 ## 5. Hallazgos (defectos o riesgos detectados)
 
-✏️ Cambien estos ejemplos por lo que les pasó de verdad al correr las pruebas.
+Al ejecutar toda la estrategia (26/11/2026) las 63 pruebas del backend, las 22 de Angular, los 3 flujos E2E y las 32 aserciones de Newman pasaron sin fallos: no se detectaron defectos funcionales en las reglas RN-01 a RN-04. El hallazgo vino del análisis de cobertura con JaCoCo.
 
-| # | Hallazgo | Prueba que lo evidencia | Corrección |
-|---|---|---|---|
-| H1 | Un ISBN con espacios (`" 978…"`) pasaba la verificación de unicidad y generaba duplicados. | `LibroServiceTest.registrar_exitoso` | Se aplica `trim()` al ISBN antes de `existsByIsbn()` y de guardarlo. |
-| H2 | El cliente podía registrar un estudiante enviando `"estado":"INACTIVO"`, lo que viola RN-02. | `EstudianteServiceTest.registrar_quedaActivo` | El servicio fuerza el estado `ACTIVO` al registrar. |
-| H3 | En Angular, `Validators.required` aceptaba un título de solo espacios. | `libros.component.spec.ts` «título y autor con solo espacios» | Se añadió `Validators.pattern(/\S+/)`. |
-| H4 | Devolver dos veces el mismo préstamo sumaba un ejemplar de más. | `FlujoPrestamoIntegracionTest.prestarYDevolver`, Newman #14 | Se agregó la decisión D2 (¿está ACTIVO?) en `devolverLibro()`. |
+| # | Hallazgo | Cómo se detectó | Corrección | Resultado |
+|---|---|---|---|---|
+| H1 | El controlador REST tenía caminos sin probar: `GET /api/estudiantes` y `GET /api/prestamos` nunca se ejecutaban, y en `POST /api/prestamos` solo se probaba la petición sin `libroId`, no la petición sin `estudianteId` (1 de 4 ramas de la validación sin cubrir). Un error en esos caminos habría pasado inadvertido. | Reporte JaCoCo de `mvn verify`: paquete `controller` con 88 % de instrucciones y 75 % de ramas; líneas sin cubrir en `EstudianteController.listar()`, `PrestamoController.listar()` y la condición de `PrestamoController.registrar()`. | Se agregaron tres pruebas `@WebMvcTest` en `PrestamoControllerTest`: `listarPrestamos_200`, `listarEstudiantes_200` y `registrar_sinEstudianteId_400` (verifica el 400, el mensaje y que no se llama al servicio). | `controller` al 100 % de instrucciones y ramas; el proyecto pasa de 97 % a 98 % de líneas y de 98 % a 100 % de ramas. |
