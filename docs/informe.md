@@ -1,10 +1,10 @@
 # Informe · Producto Académico U1 · Estrategia integral de pruebas · BiblioTech
 
-> Borrador para el PDF (máx. 8 páginas). Resultados y capturas ya actualizados con la ejecución del 26/11/2026. Falta completar lo marcado con ✏️.
+> Borrador para el PDF (máx. 8 páginas). Resultados y capturas actualizados con la ejecución del 26/11/2026. El PDF final está en `docs/informe.pdf`.
 
 **Universidad Peruana Unión · E.P. Ingeniería de Sistemas**
 **Curso:** Gobierno de Tecnologías de Información
-**Integrantes:** ✏️
+**Integrante:** Yheyson Cristofer Cala Choquepata
 **Repositorio:** https://github.com/yheysonxdxd/bibliotech-u1
 
 ---
