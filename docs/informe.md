@@ -5,7 +5,7 @@
 **Universidad Peruana Unión · E.P. Ingeniería de Sistemas**
 **Curso:** Gobierno de Tecnologías de Información
 **Integrantes:** ✏️
-**Repositorio:** ✏️ https://github.com/USUARIO/bibliotech
+**Repositorio:** https://github.com/yheysonxdxd/bibliotech-u1
 
 ---
 
